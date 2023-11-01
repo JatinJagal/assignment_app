@@ -3,6 +3,9 @@ import 'package:assignment_app/res/custome_widgets/custome_button.dart';
 import 'package:assignment_app/res/custome_widgets/custome_dropdown.dart';
 import 'package:assignment_app/res/custome_widgets/custome_textfield.dart';
 import 'package:assignment_app/screens/created_successful.dart';
+import 'package:assignment_app/screens/splash_screen.dart';
+
+import '../funtions/myfuntions.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -13,12 +16,56 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
 
-  int groupval = 3;
+  int groupval = 1;
 
   var _formKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  
+  //----------------------------
+
+  String getMarStatus = "";
+  String getOccupation = "";
+  String getAnnualIn = "";
+
+  String  empty="";
+  void getDropDownValue(int i,String value){
+    if(i==0){
+      setState((){
+        getMarStatus=value;
+      });
+    }else{
+      setState((){
+        empty=value;
+      });
+    }
+  }
+
+  void getDropDownOcc(int i,String value){
+    if(i==0){
+      setState((){
+        getOccupation=value;
+      });
+    }else{
+      setState((){
+        empty=value;
+      });
+    }
+  }
+
+  void getDropDownAnn(int i,String value){
+    if(i==0){
+      setState((){
+        getAnnualIn=value;
+      });
+    }else{
+      setState((){
+        empty=value;
+      });
+    }
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +80,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: whiteColor,
           elevation: 0.0,
           leading: IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen()));
+              },
               icon: Image.asset(
                 icBack,
                 height: 34,
@@ -63,11 +112,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Image.asset(icTrade,height: height * 0.07,width: width * 0.14,fit: BoxFit.fill,),
                         Text(appName,
-                          style: GoogleFonts.sriracha(
-                              fontSize: 32,
-                              letterSpacing: 2,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal),
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontFamily: 'Give You Glory',
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal
+                          ),
                         ),
                       ],
                     ),
@@ -124,21 +175,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                   //--------------------------------------Drop downs---------------------------------
 
-                  CustomeDrop(titleTxt: titleMarital,listName: maritalS,),
+                  // Text(getAnnualIn,style: TextStyle(color: Colors.black),),
+                  CustomeDrop(titleTxt: titleMarital,data: maritalS,getValueFunc: getDropDownValue,identifier: 0,errTxt: selectMar),
                   SizedBox(height: height * 0.02,),
-                  CustomeDrop(titleTxt: titleOccupation,listName: occupation,),
+                  CustomeDrop(titleTxt: titleOccupation,data: occupation,getValueFunc: getDropDownOcc,identifier: 0,errTxt: selectOcc,),
                   SizedBox(height: height * 0.02,),
-                  CustomeDrop(titleTxt: titleIncome,listName: annuIncome,),
+                  CustomeDrop(titleTxt: titleIncome,data: annuIncome,getValueFunc: getDropDownAnn,identifier: 0,errTxt: selectAnn,),
                   SizedBox(height: height * 0.02,),
 
+
+                  // ---------------------------------------Submit Button------------------------------------
+
                   CustomButton(icn: icClean, text: submit, onpress: (){
-                   if( _formKey.currentState!.validate()){
+                   if( _formKey.currentState!.validate() && groupval != 0){
                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreatedSuccessful()));
+                   }else{
+                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                         backgroundColor: Colors.red,
+                         content: Row(
+                       children: [
+                         Icon(Icons.error_outline),
+                         Text("Please fill all the information")
+                       ],
+                     )));
                    }
 
                   },
                     txtColor: whiteColor,bgColor: blackColor,icColor: blackColor,),
                   SizedBox(height: height * 0.02,),
+
                 ],
               ),
             ),

@@ -36,3 +36,6 @@ const allStockes = "All Stockes";
 
 const nameErr = "Name is Required";
 const dateErr = "Date is Required";
+const selectMar = "Select Marital status";
+const selectOcc = "Select Occupation";
+const selectAnn = "Select Annual Income";

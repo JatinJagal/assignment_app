@@ -1,10 +1,10 @@
 import 'package:assignment_app/res/constants/consts.dart';
 
-List maritalS = ["Unmarried","Married","Single"];
+final List<String> maritalS = ["Unmarried","Married","Single"];
 
-List occupation = ["Businessman","Doctor","Employee"];
+final List<String> occupation = ["Businessman","Doctor","Employee"];
 
-List annuIncome = ["6 Lac","8 Lac","9 Lac"];
+final List<String> annuIncome = ["6 Lac","8 Lac","9 Lac"];
 
 //Bottom navBar Items
 

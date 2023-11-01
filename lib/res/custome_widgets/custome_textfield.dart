@@ -39,7 +39,7 @@ class CustomeTextField extends StatelessWidget {
           height: height * 0.06,
           child: TextFormField(
             controller: controller,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            // autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (title) => title!.length < 3 ? erroMsg: null,
             keyboardType: inputeType,
             decoration: InputDecoration(
